@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Proposal — Agentic AI UCIC</title>
+  <link rel="icon" type="image/png" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* =========================================
+       PROPOSAL PAGE — REDESIGNED
+       Menggabungkan layout PHP dengan fungsionalitas HTML
+    ========================================= */
+
+    /* ── FORM PAGE WRAPPER ── */
+    .form-page {
+      position: relative;
+      min-height: 100vh;
+      background: var(--blue-dark);
+      padding: 140px 24px 80px;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    /* Background Animasi & Grid */
+    .form-page::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(30,111,192,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,111,192,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: -2; pointer-events: none;
+    }
+    .form-page-blob1 {
+      position: absolute; width: 500px; height: 500px;
+      top: -100px; left: -150px; border-radius: 50%;
+      background: rgba(30,111,192,0.15); filter: blur(80px);
+      z-index: -1; animation: blobMove 10s ease-in-out infinite alternate; pointer-events: none;
+    }
+    .form-page-blob2 {
+      position: absolute; width: 400px; height: 400px;
+      bottom: -100px; right: -100px; border-radius: 50%;
+      background: rgba(255,215,0,0.08); filter: blur(80px);
+      z-index: -1; animation: blobMove 12s ease-in-out 2s infinite alternate; pointer-events: none;
+    }
+
+    /* ── FORM CONTAINER ── */
+    .form-container {
+      max-width: 800px; margin: 0 auto;
+      background: rgba(13, 33, 68, 0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px; padding: 52px 48px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    @media (max-width: 640px) { .form-container { padding: 32px 20px; } }
+
+    /* ── HEADER ── */
+    .form-header { text-align: center; margin-bottom: 40px; }
+    .form-badge-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,215,0,0.1); color: var(--yellow);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 6px 14px; border-radius: 50px;
+      margin-bottom: 16px; border: 1px solid rgba(255,215,0,0.25);
+    }
+    .form-badge-dot {
+      width: 6px; height: 6px; background: var(--yellow);
+      border-radius: 50%; animation: pulse 1.5s ease infinite alternate;
+    }
+    .form-header h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; color: #fff; margin-bottom: 12px;
+      font-family: var(--font-display);
+    }
+    .headline-gradient {
+      background: linear-gradient(135deg, var(--yellow), #FF8C00);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .form-header p { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.6; }
+
+    /* ── STEPPER ── */
+    .steps-wrapper { margin-bottom: 40px; }
+    .steps-bar { display: flex; align-items: center; justify-content: center; gap: 0; }
+    .step-dot {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; font-weight: 700; transition: all 0.3s;
+      background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.3);
+      border: 2px solid rgba(255,255,255,0.08); z-index: 2; position: relative;
+    }
+    .step-dot.active { background: var(--yellow); color: var(--blue-dark); border-color: var(--yellow); box-shadow: 0 0 20px rgba(255,215,0,0.35); }
+    .step-dot.done { background: #22c55e; color: #fff; border-color: #22c55e; }
+    .step-line { width: 80px; height: 2px; background: rgba(255,255,255,0.08); transition: background 0.3s; margin: 0 -4px; }
+    .step-line.done { background: #22c55e; }
+    .steps-labels { display: flex; justify-content: center; margin-top: 10px; }
+    .step-label-item { width: 80px; text-align: center; font-size: 0.72rem; color: rgba(255,255,255,0.3); font-weight: 600; transition: color 0.3s; }
+    .step-label-item.active { color: var(--yellow); }
+    .step-label-item.done { color: #22c55e; }
+    .step-label-gap { width: 32px; }
+
+    /* ── FORM PANELS ── */
+    .step-panel { display: none; animation: stepIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; }
+    .step-panel.active { display: block; }
+    @keyframes stepIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    .form-section-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--yellow); text-transform: uppercase; margin: 32px 0 20px;
+      padding-bottom: 12px; border-bottom: 1px solid rgba(255,215,0,0.18);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ── FORM INPUTS & GRIDS ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; align-items: start; }
+    .form-group { margin-bottom: 20px; position: relative; }
+    .form-group.full-width { grid-column: 1 / -1; }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-label { display: block; font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.85); margin-bottom: 6px; }
+    .form-label .required { color: #FF6B6B; margin-left: 2px; }
+    .form-hint { display: block; color: rgba(255,255,255,0.35); font-size: 0.75rem; margin-bottom: 8px; line-height: 1.4; }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px; color: #fff;
+      font-family: var(--font-body); font-size: 0.9rem; padding: 14px 16px;
+      outline: none; transition: all 0.3s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--yellow); background: rgba(255,215,0,0.04);
+      box-shadow: 0 0 0 3px rgba(255,215,0,0.08);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.26); }
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23FFD700' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
+    }
+    .form-select option { background: var(--blue-dark); color: var(--white); }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+    
+    /* Error states */
+    .form-input.error, .form-select.error, .form-textarea.error { border-color: #FF6B6B; box-shadow: 0 0 0 3px rgba(255,107,107,0.1); }
+    .form-input.valid, .form-select.valid, .form-textarea.valid { border-color: #22c55e; }
+    .field-error { color: #FF6B6B; font-size: 0.75rem; font-weight: 600; display: none; align-items: center; gap: 4px; margin-top: 6px; }
+    .field-error.show { display: flex; }
+    .word-counter { font-size: 0.75rem; color: rgba(255,255,255,0.38); text-align: right; margin-top: 6px; }
+    .word-counter.over { color: #FF6B6B; font-weight: 700; }
+
+    /* ── MEMBER TIM ── */
+    .member-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px; padding: 24px; margin-bottom: 16px; position: relative;
+      transition: border-color 0.3s;
+    }
+    .member-card:hover { border-color: rgba(30,111,192,0.5); }
+    .member-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .member-card-title { font-weight: 700; color: var(--white); font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+    .member-card-title i { color: var(--yellow); }
+    .btn-remove-member {
+      background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.2);
+      color: #ff9b9b; padding: 6px 12px; border-radius: 50px;
+      cursor: pointer; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-remove-member:hover { background: rgba(255,107,107,0.2); border-color: #ff9b9b; }
+
+    .btn-add-member {
+      background: rgba(255,215,0,0.05); border: 1.5px dashed rgba(255,215,0,0.3);
+      color: var(--yellow); padding: 14px 24px; border-radius: 16px; cursor: pointer;
+      font-size: 0.9rem; font-weight: 600; width: 100%; text-align: center;
+      transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-add-member:hover:not(:disabled) { background: rgba(255,215,0,0.1); border-color: var(--yellow); }
+    .btn-add-member:disabled { opacity: 0.4; cursor: not-allowed; border-color: rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); }
+
+    /* ── FORM NAVIGATION ── */
+    .step-nav { display: flex; gap: 12px; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .btn-step-prev {
+      padding: 14px 24px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.15); cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; gap: 8px; flex: 1; justify-content: center; max-width: 160px;
+    }
+    .btn-step-prev:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .btn-step-next {
+      flex: 2; padding: 14px 28px; border-radius: 12px; font-weight: 700;
+      background: linear-gradient(135deg, var(--yellow), #FFA500); color: var(--blue-dark);
+      border: none; cursor: pointer; font-size: 0.9rem; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-step-next:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,215,0,0.35); }
+    .btn-submit-final {
+      flex: 2; padding: 14px 28px; border-radius: 12px; font-weight: 700;
+      background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff;
+      border: none; cursor: pointer; font-size: 0.95rem; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-submit-final:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,197,94,0.35); }
+    @media (max-width: 640px) { .step-nav { flex-direction: column-reverse; } .btn-step-prev { max-width: 100%; } }
+
+    /* ── REVIEW SECTION ── */
+    .review-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    .review-table td { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
+    .review-table td:first-child { color: rgba(255,255,255,0.4); font-size: 0.85rem; width: 35%; padding-right: 16px; font-weight: 500; }
+    .review-table td:last-child { color: #fff; font-size: 0.9rem; font-weight: 400; word-break: break-word; }
+    .review-table td a { color: var(--yellow); text-decoration: underline; }
+
+    .agree-block {
+      background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.15);
+      border-radius: 16px; padding: 24px; margin-top: 32px;
+    }
+    .agree-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+    .agree-row:last-child { margin-bottom: 0; }
+    .agree-checkbox { width: 22px; height: 22px; accent-color: var(--yellow); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+    .agree-label { font-size: 0.88rem; line-height: 1.6; color: rgba(255,255,255,0.7); cursor: pointer; }
+    .agree-label strong { color: var(--white); }
+    .agree-label a { color: var(--yellow); }
+    .agree-error { color: #FF6B6B; font-size: 0.8rem; font-weight: 600; display: none; margin-top: 10px; }
+    .agree-error.show { display: block; }
+
+    /* ── OVERLAYS ── */
+    .submitting-overlay {
+      position: fixed; inset: 0; background: rgba(10,22,40,0.85); backdrop-filter: blur(8px);
+      z-index: 19999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      opacity: 0; visibility: hidden; transition: opacity 0.3s;
+    }
+    .submitting-overlay.show { opacity: 1; visibility: visible; }
+    .submitting-spinner {
+      width: 64px; height: 64px; border: 4px solid rgba(255,215,0,0.15); border-top-color: var(--yellow);
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    .submitting-overlay p { color: rgba(255,255,255,0.8); font-size: 1rem; font-weight: 500; letter-spacing: 1px; }
+
+    .success-overlay {
+      position: fixed; inset: 0; background: rgba(10,22,40,0.95); backdrop-filter: blur(14px);
+      z-index: 20000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: opacity 0.4s; padding: 24px;
+    }
+    .success-overlay.show { opacity: 1; visibility: visible; }
+    .success-modal {
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-dark));
+      border: 1px solid rgba(255,215,0,0.25); border-radius: 28px;
+      padding: 48px 40px; max-width: 520px; width: 100%; text-align: center;
+      transform: scale(0.9) translateY(20px); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    .success-overlay.show .success-modal { transform: scale(1) translateY(0); }
+    .success-icon {
+      width: 80px; height: 80px; background: linear-gradient(135deg, #4ADE80, #16A34A);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; color: var(--white); margin: 0 auto 24px;
+      animation: successPop 0.5s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+      box-shadow: 0 0 40px rgba(74,222,128,0.3);
+    }
+    @keyframes successPop { from{transform:scale(0);} to{transform:scale(1);} }
+    .success-modal h2 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .success-modal>p { color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 24px; font-size: 0.95rem;}
+    .success-contact { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 32px; }
+    .success-contact p { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-bottom: 12px; }
+    .success-contact a { display: inline-flex; align-items: center; gap: 8px; color: var(--white); font-weight: 700; text-decoration: none; }
+    .success-btn { width: 100%; justify-content: center; padding: 14px; border-radius: 12px;}
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">AGENTIC AI</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-text">Menyiapkan formulir...</div>
+  </div>
+</div>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <img src="assets/Logo Agentic AI FIXED.svg" alt="Agentic AI Center CIC" class="logo-img">
+    </div>
+    <div class="nav-links-desktop">
+      <a href="index.html#home" class="nav-link">Home</a>
+      <a href="index.html#program" class="nav-link">Program Pendanaan</a>
+      <a href="index.html#alur" class="nav-link">Alur Pendaftaran</a>
+      <a href="index.html#faq" class="nav-link">FAQ</a>
+    </div>
+    <a href="submit_proposal.html" class="btn-submit nav-cta">Submit Proposal</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-inner">
+    <button class="mobile-close" id="mobileClose" aria-label="Tutup menu"><i class="fas fa-times"></i></button>
+    <nav class="mobile-nav">
+      <a href="index.html#home" class="mobile-nav-link" data-mobile-link>Home</a>
+      <a href="index.html#program" class="mobile-nav-link" data-mobile-link>Program Pendanaan</a>
+      <a href="index.html#alur" class="mobile-nav-link" data-mobile-link>Alur Pendaftaran</a>
+      <a href="index.html#faq" class="mobile-nav-link" data-mobile-link>FAQ</a>
+    </nav>
+    <a href="submit_proposal.html" class="btn-submit mobile-menu-cta">Submit Proposal</a>
+  </div>
+</div>
+
+<div class="form-page">
+  <div class="form-page-blob1"></div>
+  <div class="form-page-blob2"></div>
+
+  <div class="form-container">
+    <div class="form-header" data-aos="fade-down">
+      <div class="form-badge-tag"><div class="form-badge-dot"></div> Open Submission 2026</div>
+      <h1>Submit <span class="headline-gradient">Proposal</span></h1>
+      <p>Isi formulir di bawah ini dengan lengkap dan benar. Semua data wajib diisi kecuali informasi anggota tim (opsional).</p>
+    </div>
+
+    <div class="steps-wrapper" data-aos="fade-up">
+      <div class="steps-bar">
+        <div class="step-dot active" id="sd1">1</div>
+        <div class="step-line" id="sl1"></div>
+        <div class="step-dot" id="sd2">2</div>
+        <div class="step-line" id="sl2"></div>
+        <div class="step-dot" id="sd3">3</div>
+      </div>
+      <div class="steps-labels">
+        <div class="step-label-item active" id="lbl1">Data Tim</div>
+        <div class="step-label-gap"></div>
+        <div class="step-label-item" id="lbl2">Proposal</div>
+        <div class="step-label-gap"></div>
+        <div class="step-label-item" id="lbl3">Review</div>
+      </div>
+    </div>
+
+    <div class="step-panel active" id="panel1" data-aos="fade-up" data-aos-delay="100">
+      <div class="form-section-title"><i class="fas fa-user-tie"></i> Pengusul Utama / Ketua Tim</div>
+
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label" for="k_nama">Nama Lengkap <span class="required">*</span></label>
+          <span class="form-hint">Nama sesuai KTP/KTM</span>
+          <input type="text" id="k_nama" class="form-input" placeholder="Contoh: Ahmad Fauzi Hidayat" autocomplete="name">
+          <span class="field-error" id="k_nama_err"><i class="fas fa-exclamation-circle"></i> Nama lengkap wajib diisi (min 3 karakter)</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="k_nik">NIK <span class="required">*</span></label>
+          <span class="form-hint">Nomor Induk Kependudukan (16 digit)</span>
+          <input type="text" id="k_nik" class="form-input" placeholder="3201234567890001" maxlength="16" inputmode="numeric">
+          <span class="field-error" id="k_nik_err"><i class="fas fa-exclamation-circle"></i> NIK harus 16 digit angka</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="k_tgl_lahir">Tanggal Lahir <span class="required">*</span></label>
+          <span class="form-hint">Hari, Bulan, Tahun</span>
+          <input type="date" id="k_tgl_lahir" class="form-input">
+          <span class="field-error" id="k_tgl_lahir_err"><i class="fas fa-exclamation-circle"></i> Tanggal lahir wajib diisi</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label" for="k_alamat">Alamat Domisili <span class="required">*</span></label>
+          <span class="form-hint">Alamat tempat tinggal saat ini</span>
+          <input type="text" id="k_alamat" class="form-input" placeholder="Jl. Contoh No.1, Kecamatan, Kota/Kabupaten">
+          <span class="field-error" id="k_alamat_err"><i class="fas fa-exclamation-circle"></i> Alamat domisili wajib diisi</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="k_kategori">Kategori Peserta <span class="required">*</span></label>
+          <span class="form-hint">Pilih kategori yang sesuai</span>
+          <select id="k_kategori" class="form-select">
+            <option value="">— Pilih Kategori —</option>
+            <option value="Pelajar (SMP/SMA/SMK)">Pelajar (SMP/SMA/SMK)</option>
+            <option value="Mahasiswa">Mahasiswa</option>
+            <option value="Fresh Graduate">Fresh Graduate</option>
+            <option value="Lainnya (Umum)">Lainnya (Umum)</option>
+          </select>
+          <span class="field-error" id="k_kategori_err"><i class="fas fa-exclamation-circle"></i> Kategori peserta wajib dipilih</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="k_institusi">Asal Institusi <span class="required">*</span></label>
+          <span class="form-hint">Nama Sekolah / Universitas / Umum</span>
+          <input type="text" id="k_institusi" class="form-input" placeholder="Contoh: Universitas UCIC Cirebon">
+          <span class="field-error" id="k_institusi_err"><i class="fas fa-exclamation-circle"></i> Asal institusi wajib diisi</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="k_email">Email Aktif <span class="required">*</span></label>
+          <span class="form-hint">Alamat email yang aktif digunakan</span>
+          <input type="email" id="k_email" class="form-input" placeholder="email@domain.com" autocomplete="email" inputmode="email">
+          <span class="field-error" id="k_email_err"><i class="fas fa-exclamation-circle"></i> Format email tidak valid</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="k_wa">No. WhatsApp Aktif <span class="required">*</span></label>
+          <span class="form-hint">Nomor WhatsApp yang aktif</span>
+          <input type="tel" id="k_wa" class="form-input" placeholder="08xxxxxxxxxx" inputmode="tel">
+          <span class="field-error" id="k_wa_err"><i class="fas fa-exclamation-circle"></i> Nomor WhatsApp tidak valid</span>
+        </div>
+      </div>
+
+      <div class="form-section-title" style="margin-top: 48px;"><i class="fas fa-users"></i> Anggota Tim (Opsional)</div>
+      <p style="color:rgba(255,255,255,0.4);font-size:0.85rem;margin-bottom:24px;">Maks. 3 anggota tambahan (total 4 orang termasuk ketua). Kosongkan jika mengajukan secara individual.</p>
+
+      <div id="memberList"></div>
+
+      <button class="btn-add-member" id="btnAddMember" type="button">
+        <i class="fas fa-user-plus"></i> Tambah Anggota Tim
+      </button>
+
+      <div class="step-nav">
+        <div></div>
+        <button class="btn-step-next" id="nextToStep2" type="button">
+          Lanjut ke Detail Proposal <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="step-panel" id="panel2">
+      <div class="form-section-title"><i class="fas fa-lightbulb"></i> Informasi Proyek</div>
+
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label" for="p_judul">Judul Proposal <span class="required">*</span></label>
+          <span class="form-hint">Judul yang jelas dan deskriptif</span>
+          <input type="text" id="p_judul" class="form-input" placeholder="Contoh: Sistem Deteksi Dini Banjir Berbasis AIoT">
+          <span class="field-error" id="p_judul_err"><i class="fas fa-exclamation-circle"></i> Judul proposal wajib diisi</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="p_bidang">Bidang Fokus <span class="required">*</span></label>
+          <span class="form-hint">Pilih bidang yang paling sesuai</span>
+          <select id="p_bidang" class="form-select">
+            <option value="">— Pilih Bidang —</option>
+            <option value="AIoT">AIoT (AI + Internet of Things)</option>
+            <option value="Robotika">Robotika</option>
+            <option value="Generative AI">Generative AI</option>
+            <option value="Website Development">Website Development</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+          <span class="field-error" id="p_bidang_err"><i class="fas fa-exclamation-circle"></i> Bidang fokus wajib dipilih</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="p_durasi">Estimasi Durasi Proyek <span class="required">*</span></label>
+          <span class="form-hint">Perkiraan waktu penyelesaian</span>
+          <select id="p_durasi" class="form-select">
+            <option value="">— Pilih Durasi —</option>
+            <option value="1 Bulan">1 Bulan</option>
+            <option value="2 Bulan">2 Bulan</option>
+            <option value="3 Bulan">3 Bulan</option>
+            <option value="4 Bulan">4 Bulan</option>
+            <option value="5 Bulan">5 Bulan</option>
+            <option value="6 Bulan">6 Bulan</option>
+            <option value="Lebih dari 6 Bulan">Lebih dari 6 Bulan</option>
+          </select>
+          <span class="field-error" id="p_durasi_err"><i class="fas fa-exclamation-circle"></i> Estimasi durasi wajib dipilih</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label" for="p_deskripsi">Deskripsi Singkat Proyek <span class="required">*</span></label>
+          <span class="form-hint">Jelaskan ide proyek kamu secara singkat (Maksimal 500 kata)</span>
+          <textarea id="p_deskripsi" class="form-textarea" placeholder="Tuliskan gambaran umum proyek, masalah yang ingin diselesaikan, solusi yang ditawarkan, dan teknologi yang akan digunakan..."></textarea>
+          <div class="word-counter" id="wordCounter">0 / 500 kata</div>
+          <span class="field-error" id="p_deskripsi_err"><i class="fas fa-exclamation-circle"></i> Deskripsi wajib diisi dan maksimal 500 kata</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label" for="p_anggaran">Estimasi Anggaran / RAB <span class="required">*</span></label>
+          <span class="form-hint">Contoh nominal dalam Rupiah: Rp 5.000.000 (sertakan keterangan komponen/kebutuhan)</span>
+          <input type="text" id="p_anggaran" class="form-input" placeholder="Contoh: Rp 8.500.000">
+          <span class="field-error" id="p_anggaran_err"><i class="fas fa-exclamation-circle"></i> Estimasi anggaran wajib diisi</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label" for="p_dampak">Target / Potensi Dampak <span class="required">*</span></label>
+          <span class="form-hint">Siapa target pengguna? Apa dampak sosial/komersial yang diharapkan?</span>
+          <textarea id="p_dampak" class="form-textarea" rows="4" placeholder="Contoh: Target pengguna adalah petani di daerah rawan banjir. Dampak: mengurangi kerugian pertanian hingga 40%..."></textarea>
+          <span class="field-error" id="p_dampak_err"><i class="fas fa-exclamation-circle"></i> Target / potensi dampak wajib diisi</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label class="form-label" for="p_link">Link Dokumen <span class="required">*</span></label>
+          <span class="form-hint">Tautan Proposal / Presentasi / RAB / Prototype (Google Drive, GitHub, dll.)</span>
+          <input type="url" id="p_link" class="form-input" placeholder="https://drive.google.com/... atau https://github.com/...">
+          <span class="field-error" id="p_link_err"><i class="fas fa-exclamation-circle"></i> Link dokumen wajib diisi (format URL valid)</span>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn-step-prev" id="backToStep1" type="button"><i class="fas fa-arrow-left"></i> Kembali</button>
+        <button class="btn-step-next" id="nextToStep3" type="button">Review Pengajuan <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="step-panel" id="panel3">
+      <div class="form-section-title"><i class="fas fa-clipboard-check"></i> Review Pengajuan</div>
+      <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-bottom:24px;">Pastikan semua informasi yang dimasukkan sudah benar dan lengkap. Data tidak dapat diubah setelah submit.</p>
+
+      <div class="form-section-title" style="border:none; margin:16px 0 8px; font-size:0.7rem; opacity:0.8;">Data Pengusul Utama</div>
+      <div id="reviewKetuaBody"></div>
+
+      <div id="reviewAnggotaSection"></div>
+
+      <div class="form-section-title" style="border:none; margin:32px 0 8px; font-size:0.7rem; opacity:0.8;">Data Proposal</div>
+      <div id="reviewProposalBody"></div>
+
+      <div class="agree-block">
+        <div class="agree-row">
+          <input type="checkbox" id="agreeData" class="agree-checkbox">
+          <label for="agreeData" class="agree-label">Saya menyatakan bahwa seluruh informasi yang saya isi adalah <strong>benar dan orisinal</strong>. Saya bertanggung jawab penuh atas keabsahan data.</label>
+        </div>
+        <div class="agree-row">
+          <input type="checkbox" id="agreeTnC" class="agree-checkbox">
+          <label for="agreeTnC" class="agree-label">Saya menyetujui <a href="syarat_ketentuan.html" target="_blank">Syarat dan Ketentuan</a> Program Agentic AI UCIC dan bersedia mematuhi seluruh aturan yang berlaku.</label>
+        </div>
+        <div class="agree-error" id="agreeErr">⚠️ Harap centang kedua pernyataan di atas untuk melanjutkan.</div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn-step-prev" id="backToStep2" type="button"><i class="fas fa-arrow-left"></i> Kembali Edit</button>
+        <button class="btn-submit-final" id="btnSubmitFinal" type="button">
+          <i class="fas fa-paper-plane"></i> Submit Proposal Sekarang
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="submitting-overlay" id="submittingOverlay">
+  <div class="submitting-spinner"></div>
+  <p>Mengirim proposal...</p>
+</div>
+
+<div class="success-overlay" id="successOverlay">
+  <div class="success-modal">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2>Proposal Terkirim! 🎉</h2>
+    <p>Selamat! Proposal kamu telah berhasil kami terima. Tim kurator Agentic AI UCIC akan segera meninjau pengajuanmu.</p>
+    <div class="success-contact">
+      <p>Langkah selanjutnya: Bergabunglah ke grup WhatsApp kami untuk update informasi.</p>
+      <a href="https://wa.me/628132001724?text=Halo%2C%20saya%20baru%20saja%20submit%20proposal%20Agentic%20AI%20UCIC.%20Mohon%20bantu%20masukkan%20ke%20grup%20ya!" target="_blank">
+        <i class="fab fa-whatsapp" style="color:#25D366;font-size:1.2rem;"></i> Hubungi via WhatsApp
+      </a>
+    </div>
+    <a href="index.html" class="btn-primary success-btn"><i class="fas fa-home"></i> Kembali ke Beranda</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo footer-logo">
+        <img src="assets/Logo Agentic AI FIXED.svg" alt="Agentic AI Center CIC" class="logo-img footer-logo-img">
+      </div>
+      <p>Pusat inovasi AI untuk generasi muda Indonesia. Bersama kami, ide kamu bisa mengubah dunia.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/agenticaiucic/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@agenticai.ucic" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/share/1DkdEUKC7T/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://youtube.com/@agenticaiucic" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.gg/abc123" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+    <div class="footer-links-group">
+      <h4>Navigasi</h4>
+      <a href="index.html">Home</a>
+      <a href="index.html#program">Program Pendanaan</a>
+      <a href="index.html#alur">Alur Pendaftaran</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="footer-links-group">
+      <h4>Program</h4>
+      <a href="index.html#fokus">Generative AI</a>
+      <a href="index.html#fokus">AIoT</a>
+      <a href="index.html#fokus">Robotics</a>
+      <a href="syarat_ketentuan.html">Syarat & Ketentuan</a>
+    </div>
+    <div class="footer-links-group">
+      <h4>Kontak</h4>
+      <a href="mailto:agenticaiucic@gmail.com"><i class="fas fa-envelope"></i><span>agenticaiucic@gmail.com</span></a>
+      <a href="https://wa.me/628132001724" target="_blank"><i class="fab fa-whatsapp"></i> +62 813-2001-724</a>
+      <a href="https://maps.app.goo.gl/u6ZPPEoTwR7V3Aae6" target="_blank"><i class="fas fa-map-marker-alt"></i>Gedung Agentic AI Center UCIC, Cirebon</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Agentic AI Center UCIC. All rights reserved. Built with ❤️ for Indonesian AI Innovators.</p>
+    <p>Powered by <strong>UCIC dan Rakit AI</strong></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/628132001724" class="wa-float" target="_blank" aria-label="Chat via WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-tooltip">Ada pertanyaan? Chat kami!</span>
+  <div class="wa-pulse"></div>
+</a>
+<button class="back-top" id="backTop" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<script src="script.js"></script>
+<script>
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxk8RF0n13lj_hPBTeW5W5Wz85vQJXavdq6z9j86OALbPFKKljvqvTn637DpQ9P-HZ0/exec';
+
+let memberCount = 0;
+const MAX_MEMBERS = 3;
+
+function createMemberCard(uid, num) {
+  const card = document.createElement('div');
+  card.className = 'member-card';
+  card.id = `mc_${uid}`;
+  card.innerHTML = `
+    <div class="member-card-header">
+      <div class="member-card-title"><i class="fas fa-user"></i> Anggota Tim ${num}</div>
+      <button class="btn-remove-member" onclick="rmMember(${uid})" type="button" title="Hapus anggota"><i class="fas fa-times"></i> Hapus</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group full-width" style="margin-bottom:12px;">
+        <label class="form-label">Nama Lengkap</label>
+        <input type="text" class="form-input" data-m="${uid}" data-f="nama" placeholder="Nama Lengkap sesuai KTP">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group" style="margin-bottom:12px;">
+        <label class="form-label">NIK</label>
+        <input type="text" class="form-input" data-m="${uid}" data-f="nik" placeholder="16 digit NIK" maxlength="16" inputmode="numeric">
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label class="form-label">Tanggal Lahir</label>
+        <input type="date" class="form-input" data-m="${uid}" data-f="tgl_lahir">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group full-width" style="margin-bottom:12px;">
+        <label class="form-label">Alamat Domisili</label>
+        <input type="text" class="form-input" data-m="${uid}" data-f="alamat" placeholder="Alamat saat ini">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group" style="margin-bottom:12px;">
+        <label class="form-label">Kategori Peserta</label>
+        <select class="form-select" data-m="${uid}" data-f="kategori">
+          <option value="">— Pilih Kategori —</option>
+          <option>Pelajar (SMP/SMA/SMK)</option><option>Mahasiswa</option>
+          <option>Fresh Graduate</option><option>Lainnya (Umum)</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label class="form-label">Asal Institusi</label>
+        <input type="text" class="form-input" data-m="${uid}" data-f="institusi" placeholder="Nama Sekolah/Universitas">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Email Aktif</label>
+        <input type="email" class="form-input" data-m="${uid}" data-f="email" placeholder="email@domain.com" inputmode="email">
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">No. WhatsApp</label>
+        <input type="tel" class="form-input" data-m="${uid}" data-f="wa" placeholder="08xxxxxxxxxx" inputmode="tel">
+      </div>
+    </div>`;
+  return card;
+}
+
+window.rmMember = uid => {
+  const el = document.getElementById(`mc_${uid}`);
+  if (el) el.remove();
+  memberCount--;
+  document.getElementById('btnAddMember').disabled = memberCount >= MAX_MEMBERS;
+  document.getElementById('btnAddMember').innerHTML = '<i class="fas fa-user-plus"></i> Tambah Anggota Tim';
+  document.querySelectorAll('#memberList .member-card').forEach((c,i)=>{
+    const t=c.querySelector('.member-card-title');
+    if(t) t.innerHTML=`<i class="fas fa-user"></i> Anggota Tim ${i+1}`;
+  });
+};
+
+document.getElementById('btnAddMember').addEventListener('click',()=>{
+  if(memberCount>=MAX_MEMBERS) return;
+  const uid=Date.now();
+  const card=createMemberCard(uid,memberCount+1);
+  document.getElementById('memberList').appendChild(card);
+  memberCount++;
+  if (memberCount >= MAX_MEMBERS) {
+      document.getElementById('btnAddMember').disabled = true;
+      document.getElementById('btnAddMember').innerHTML = '<i class="fas fa-ban"></i> Maksimal 3 anggota tambahan tercapai';
+  }
+  card.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+const isEmail=e=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+const isWA   =w=>/^(08|628|\+628)[0-9]{7,13}$/.test(w.replace(/[\s-]/g,''));
+const isNIK  =n=>/^[0-9]{16}$/.test(n);
+
+function vf(id,ok,eid){
+  const el=document.getElementById(id), err=eid?document.getElementById(eid):null;
+  el.classList.toggle('error',!ok); el.classList.toggle('valid',!!ok);
+  if(err) err.classList.toggle('show',!ok); return !!ok;
+}
+
+function validateStep1(){
+  return [
+    vf('k_nama',    document.getElementById('k_nama').value.trim().length>=3,     'k_nama_err'),
+    vf('k_nik',     isNIK(document.getElementById('k_nik').value.trim()),          'k_nik_err'),
+    vf('k_tgl_lahir',!!document.getElementById('k_tgl_lahir').value,              'k_tgl_lahir_err'),
+    vf('k_alamat',  document.getElementById('k_alamat').value.trim().length>=10,   'k_alamat_err'),
+    vf('k_kategori',document.getElementById('k_kategori').value!=='',             'k_kategori_err'),
+    vf('k_institusi',document.getElementById('k_institusi').value.trim().length>=3,'k_institusi_err'),
+    vf('k_email',   isEmail(document.getElementById('k_email').value.trim()),      'k_email_err'),
+    vf('k_wa',      isWA(document.getElementById('k_wa').value.trim()),            'k_wa_err'),
+  ].every(Boolean);
+}
+
+function validateStep2(){
+  const d=document.getElementById('p_deskripsi').value.trim();
+  const wc=d?d.split(/\s+/).filter(Boolean).length:0;
+  const lk=document.getElementById('p_link').value.trim();
+  let validUrl=false; try{new URL(lk);validUrl=lk.startsWith('http');}catch(_){}
+  return [
+    vf('p_judul',  document.getElementById('p_judul').value.trim().length>=5,     'p_judul_err'),
+    vf('p_bidang', document.getElementById('p_bidang').value!=='',                'p_bidang_err'),
+    vf('p_durasi', document.getElementById('p_durasi').value!=='',                'p_durasi_err'),
+    vf('p_deskripsi',d.length>=20&&wc<=500,                                       'p_deskripsi_err'),
+    vf('p_anggaran',document.getElementById('p_anggaran').value.trim().length>=3, 'p_anggaran_err'),
+    vf('p_dampak', document.getElementById('p_dampak').value.trim().length>=10,   'p_dampak_err'),
+    vf('p_link',   validUrl,                                                       'p_link_err'),
+  ].every(Boolean);
+}
+
+document.getElementById('p_deskripsi').addEventListener('input',function(){
+  const wc=this.value.trim()?this.value.trim().split(/\s+/).filter(Boolean).length:0;
+  const el=document.getElementById('wordCounter');
+  el.textContent=`${wc} / 500 kata`;
+  el.className='word-counter'+(wc>500?' over':wc>450?' warn':'');
+});
+
+function goToStep(n){
+  document.querySelectorAll('.step-panel').forEach((p,i)=>p.classList.toggle('active',i+1===n));
+  for(let i=1;i<=3;i++){
+    const dot = document.getElementById(`sd${i}`);
+    const lbl = document.getElementById(`lbl${i}`);
+    const line = document.getElementById(`sl${i}`);
+    
+    if(i < n) {
+        dot.className = 'step-dot done'; dot.innerHTML = '<i class="fas fa-check"></i>';
+        if(lbl) lbl.className = 'step-label-item done';
+    } else if (i === n) {
+        dot.className = 'step-dot active'; dot.innerHTML = i;
+        if(lbl) lbl.className = 'step-label-item active';
+    } else {
+        dot.className = 'step-dot'; dot.innerHTML = i;
+        if(lbl) lbl.className = 'step-label-item';
+    }
+    if(line && i < 3) {
+        line.className = 'step-line' + (i < n ? ' done' : '');
+    }
+  }
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+const firstErr=()=>{const e=document.querySelector('.form-input.error,.form-select.error,.form-textarea.error');if(e)e.scrollIntoView({behavior:'smooth',block:'center'});};
+
+document.getElementById('nextToStep2').addEventListener('click',()=>validateStep1()?goToStep(2):firstErr());
+document.getElementById('backToStep1').addEventListener('click',()=>goToStep(1));
+document.getElementById('nextToStep3').addEventListener('click',()=>{if(validateStep2()){buildReview();goToStep(3);}else firstErr();});
+document.getElementById('backToStep2').addEventListener('click',()=>goToStep(2));
+
+function rr(k,v){
+  const s=(v||'-');
+  const h=s.startsWith('http')?`<a href="${s}" target="_blank">${s}</a>`:s.replace(/\n/g,'<br>');
+  return `<tr><td>${k}</td><td>${h}</td></tr>`;
+}
+
+function buildReview(){
+  document.getElementById('reviewKetuaBody').innerHTML= `
+    <table class="review-table">
+        ${rr('Nama Lengkap',    document.getElementById('k_nama').value)}
+        ${rr('NIK',             document.getElementById('k_nik').value)}
+        ${rr('Tanggal Lahir',   document.getElementById('k_tgl_lahir').value)}
+        ${rr('Alamat Domisili', document.getElementById('k_alamat').value)}
+        ${rr('Kategori Peserta',document.getElementById('k_kategori').value)}
+        ${rr('Asal Institusi',  document.getElementById('k_institusi').value)}
+        ${rr('Email',           document.getElementById('k_email').value)}
+        ${rr('WhatsApp',        document.getElementById('k_wa').value)}
+    </table>`;
+
+  const sec=document.getElementById('reviewAnggotaSection'); sec.innerHTML='';
+  document.querySelectorAll('#memberList .member-card').forEach((card,i)=>{
+    const g=f=>card.querySelector(`[data-f="${f}"]`)?.value||'-';
+    if(g('nama')==='-') return;
+    sec.insertAdjacentHTML('beforeend',`
+      <div class="form-section-title" style="border:none; margin:24px 0 8px; font-size:0.7rem; opacity:0.8;">Anggota Tim ${i+1}</div>
+      <table class="review-table">
+          ${rr('Nama Lengkap',g('nama'))}${rr('NIK',g('nik'))}${rr('Tanggal Lahir',g('tgl_lahir'))}
+          ${rr('Alamat Domisili',g('alamat'))}${rr('Kategori Peserta',g('kategori'))}${rr('Asal Institusi',g('institusi'))}
+          ${rr('Email',g('email'))}${rr('WhatsApp',g('wa'))}
+      </table>`);
+  });
+
+  document.getElementById('reviewProposalBody').innerHTML=`
+    <table class="review-table">
+        ${rr('Judul Proposal',    document.getElementById('p_judul').value)}
+        ${rr('Bidang Fokus',      document.getElementById('p_bidang').value)}
+        ${rr('Estimasi Durasi',   document.getElementById('p_durasi').value)}
+        ${rr('Deskripsi Singkat', document.getElementById('p_deskripsi').value)}
+        ${rr('Estimasi Anggaran', document.getElementById('p_anggaran').value)}
+        ${rr('Target / Dampak',   document.getElementById('p_dampak').value)}
+        ${rr('Link Dokumen',      document.getElementById('p_link').value)}
+    </table>`;
+}
+
+document.getElementById('btnSubmitFinal').addEventListener('click',async()=>{
+  const ok1=document.getElementById('agreeData').checked;
+  const ok2=document.getElementById('agreeTnC').checked;
+  const eEl=document.getElementById('agreeErr');
+  if(!ok1||!ok2){eEl.classList.add('show');eEl.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  eEl.classList.remove('show');
+  document.getElementById('submittingOverlay').classList.add('show');
+
+  const an=[];
+  document.querySelectorAll('#memberList .member-card').forEach(c=>{
+    const g=f=>c.querySelector(`[data-f="${f}"]`)?.value||'';
+    if(g('nama').trim()) an.push({nama:g('nama'),nik:g('nik'),tgl_lahir:g('tgl_lahir'),alamat:g('alamat'),kategori:g('kategori'),institusi:g('institusi'),email:g('email'),wa:g('wa')});
+  });
+  const payload={
+    k_nama:document.getElementById('k_nama').value, k_nik:document.getElementById('k_nik').value,
+    k_tgl_lahir:document.getElementById('k_tgl_lahir').value, k_alamat:document.getElementById('k_alamat').value,
+    k_kategori:document.getElementById('k_kategori').value, k_institusi:document.getElementById('k_institusi').value,
+    k_email:document.getElementById('k_email').value, k_wa:document.getElementById('k_wa').value, anggota:an,
+    p_judul:document.getElementById('p_judul').value, p_bidang:document.getElementById('p_bidang').value,
+    p_durasi:document.getElementById('p_durasi').value, p_deskripsi:document.getElementById('p_deskripsi').value,
+    p_anggaran:document.getElementById('p_anggaran').value, p_dampak:document.getElementById('p_dampak').value,
+    p_link:document.getElementById('p_link').value,
+  };
+  try{
+    if(GOOGLE_SHEET_URL&&GOOGLE_SHEET_URL!=='https://script.google.com/macros/s/AKfycbxk8RF0n13lj_hPBTeW5W5Wz85vQJXavdq6z9j86OALbPFKKljvqvTn637DpQ9P-HZ0/execs')
+      await fetch(GOOGLE_SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  }catch(e){console.warn('Sheets error:',e);}
+  setTimeout(()=>{
+    document.getElementById('submittingOverlay').classList.remove('show');
+    document.getElementById('successOverlay').classList.add('show');
+  },1800);
+});
+
+['k_nama','k_email','k_wa','k_nik','k_tgl_lahir','k_alamat','k_kategori','k_institusi'].forEach(id=>{
+  const el=document.getElementById(id); if(!el) return;
+  el.addEventListener('blur',()=>{
+    if(id==='k_email') vf(id,isEmail(el.value.trim()),id+'_err');
+    else if(id==='k_wa') vf(id,isWA(el.value.trim()),id+'_err');
+    else if(id==='k_nik') vf(id,isNIK(el.value.trim()),id+'_err');
+    else if(id==='k_tgl_lahir') vf(id,!!el.value,id+'_err');
+    else vf(id,el.value.trim().length>=2,id+'_err');
+  });
+});
+</script>
+</body>
+</html>

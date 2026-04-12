@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syarat & Ketentuan — Agentic AI UCIC</title>
+  <link rel="icon" type="image/png" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400;1,9..40,500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* ===== SYARAT & KETENTUAN PAGE ===== */
+    .sk-hero {
+      padding: 10rem 2rem 5rem;
+      background: linear-gradient(135deg, var(--blue-dark), var(--blue-mid));
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sk-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(30,111,192,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,111,192,0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .sk-hero-inner { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+    .sk-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .sk-hero p { color: var(--white-60); font-size: 1rem; line-height: 1.7; }
+    .sk-hero .last-updated {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.4rem 1.2rem;
+      background: rgba(255,215,0,0.1);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 50px;
+      color: var(--yellow);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* ===== SK CONTENT ===== */
+    .sk-content {
+      background: linear-gradient(180deg, var(--blue-mid) 0%, #0A1420 100%);
+      padding: 5rem 2rem;
+      position: relative;
+    }
+    .sk-content::before {
+      content: "";
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(30,111,192,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,111,192,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .sk-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .sk-toc {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin-bottom: 3.5rem;
+      backdrop-filter: blur(8px);
+    }
+    .sk-toc h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .sk-toc h3 i { color: var(--yellow); }
+    .sk-toc ol {
+      padding-left: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem 2rem;
+    }
+    .sk-toc ol li a {
+      color: var(--blue-light);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .sk-toc ol li a:hover { color: var(--yellow); text-decoration: underline; }
+
+    .sk-section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 100px;
+    }
+    .sk-section-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgba(255,255,255,0.1);
+    }
+    .sk-section-num {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--blue-main), var(--blue-bright));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.9rem; font-weight: 800;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .sk-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .sk-section p, .sk-section li {
+      color: var(--white-60);
+      font-size: 0.92rem;
+      line-height: 1.85;
+    }
+    .sk-section ul, .sk-section ol {
+      padding-left: 1.5rem;
+      margin-top: 0.75rem;
+    }
+    .sk-section li { margin-bottom: 0.5rem; }
+    .sk-section .highlight-box {
+      background: rgba(30,111,192,0.1);
+      border-left: 4px solid var(--blue-light);
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .sk-section .warning-box {
+      background: rgba(255,215,0,0.08);
+      border-left: 4px solid var(--yellow);
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+    }
+    .sk-section .warning-box p { color: var(--white-60); }
+    .sk-section strong { color: var(--white); }
+
+    /* CTA at bottom of SK page */
+    .sk-cta {
+      background: linear-gradient(135deg, var(--blue-main), var(--blue-mid));
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .sk-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800; color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .sk-cta p { color: var(--white-60); margin-bottom: 2rem; }
+    .sk-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* Back to top inline */
+    .sk-back-top {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--blue-light);
+      font-size: 0.85rem; font-weight: 600;
+      cursor: pointer;
+      transition: color 0.2s;
+      margin-top: 3rem;
+    }
+    .sk-back-top:hover { color: var(--yellow); }
+
+    @media (max-width: 600px) {
+      .sk-toc ol { grid-template-columns: 1fr; }
+      .sk-hero { padding: 8rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">AGENTIC AI</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-text">Memuat dokumen...</div>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <img src="assets/Logo Agentic AI FIXED.svg" alt="Agentic AI Center CIC" class="logo-img">
+    </div>
+    <div class="nav-links-desktop">
+      <a href="index.html#home" class="nav-link">Home</a>
+      <a href="index.html#program" class="nav-link">Program Pendanaan</a>
+      <a href="index.html#alur" class="nav-link">Alur Pendaftaran</a>
+      <a href="index.html#faq" class="nav-link">FAQ</a>
+    </div>
+    <a href="submit_proposal.html" class="btn-submit nav-cta">Submit Proposal</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu-inner">
+    <button class="mobile-close" id="mobileClose" aria-label="Tutup menu">
+      <i class="fas fa-times"></i>
+    </button>
+    <nav class="mobile-nav">
+      <a href="index.html#home" class="mobile-nav-link" data-mobile-link>Home</a>
+      <a href="index.html#program" class="mobile-nav-link" data-mobile-link>Program Pendanaan</a>
+      <a href="index.html#alur" class="mobile-nav-link" data-mobile-link>Alur Pendaftaran</a>
+      <a href="index.html#faq" class="mobile-nav-link" data-mobile-link>FAQ</a>
+    </nav>
+    <a href="submit_proposal.html" class="btn-submit mobile-menu-cta">Submit Proposal</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="sk-hero" id="home">
+  <div class="sk-hero-inner" data-aos="fade-up">
+    <div class="section-tag" style="display:inline-block;margin-bottom:1.2rem;">Dokumen Legal</div>
+    <h1>Syarat & <span class="headline-gradient">Ketentuan</span></h1>
+    <p>Program Agentic AI UCIC — Pendanaan dan Inkubasi Proyek Inovasi Teknologi</p>
+    <span class="last-updated"><i class="fas fa-calendar-alt" style="margin-right:6px;"></i>Berlaku mulai: 1 Januari 2026</span>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="sk-content">
+  <div class="sk-container">
+
+    <!-- TOC -->
+    <div class="sk-toc" data-aos="fade-up">
+      <h3><i class="fas fa-list-ul"></i> Daftar Isi</h3>
+      <ol>
+        <li><a href="#sk1">Definisi & Ruang Lingkup</a></li>
+        <li><a href="#sk2">Persyaratan Peserta</a></li>
+        <li><a href="#sk3">Ketentuan Proposal</a></li>
+        <li><a href="#sk4">Proses Seleksi & Penilaian</a></li>
+        <li><a href="#sk5">Pendanaan & Penggunaan Dana</a></li>
+        <li><a href="#sk6">Hak Kekayaan Intelektual</a></li>
+        <li><a href="#sk7">Kewajiban Peserta</a></li>
+        <li><a href="#sk8">Larangan & Sanksi</a></li>
+        <li><a href="#sk9">Perlindungan Data Pribadi</a></li>
+        <li><a href="#sk10">Penyelesaian Sengketa</a></li>
+        <li><a href="#sk11">Perubahan Ketentuan</a></li>
+        <li><a href="#sk12">Ketentuan Penutup</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="sk-section" id="sk1" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">01</div>
+        <h2>Definisi & Ruang Lingkup</h2>
+      </div>
+      <p>Dokumen Syarat dan Ketentuan ini ("Ketentuan") mengatur hubungan antara <strong>Agentic AI Center UCIC</strong> ("Penyelenggara") dengan individu atau tim yang mendaftarkan diri sebagai peserta program pendanaan inovasi teknologi ("Peserta").</p>
+      <div class="highlight-box">
+        <p><strong>Program Agentic AI UCIC</strong> adalah program inkubasi dan pendanaan proyek inovasi di bidang Teknologi Kecerdasan Buatan (AI), Internet of Things (AIoT), Robotika, Generative AI, dan pengembangan perangkat lunak yang diselenggarakan oleh Universitas Cipta Karya Informatika Cirebon bekerja sama dengan Rakit AI.</p>
+      </div>
+      <p>Dengan menyetujui formulir pengajuan proposal, Peserta dianggap telah membaca, memahami, dan menyetujui seluruh isi Ketentuan ini.</p>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="sk-section" id="sk2" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">02</div>
+        <h2>Persyaratan Peserta</h2>
+      </div>
+      <p>Program ini terbuka bagi:</p>
+      <ul>
+        <li><strong>Pelajar SMP/SMA/SMK</strong> aktif yang terdaftar di institusi pendidikan menengah yang sah di Indonesia.</li>
+        <li><strong>Mahasiswa aktif</strong> jenjang D3/D4/S1 dari perguruan tinggi terakreditasi di Indonesia.</li>
+        <li><strong>Fresh Graduate</strong> yang telah menyelesaikan studi dalam kurun waktu maksimal 2 (dua) tahun sebelum tanggal pengajuan proposal.</li>
+        <li><strong>Umum/Lainnya</strong> yang memenuhi kriteria penilaian dan bukan merupakan karyawan aktif di perusahaan yang berafiliasi dengan Penyelenggara.</li>
+      </ul>
+      <div class="warning-box">
+        <p><i class="fas fa-exclamation-triangle" style="color: var(--yellow); margin-right: 6px;"></i><strong>Ketentuan Tim:</strong> Setiap proposal dapat diajukan secara individual atau dalam tim dengan maksimal <strong>4 (empat) anggota</strong> termasuk ketua tim. Satu peserta hanya diperbolehkan terdaftar sebagai ketua tim pada 1 (satu) proposal aktif dalam periode batch yang sama.</p>
+      </div>
+      <p>Peserta wajib memiliki identitas yang sah (KTP/Kartu Pelajar/Kartu Mahasiswa) dan bersedia diverifikasi sewaktu-waktu selama masa program berlangsung.</p>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="sk-section" id="sk3" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">03</div>
+        <h2>Ketentuan Proposal</h2>
+      </div>
+      <p>Setiap proposal yang diajukan wajib memenuhi ketentuan berikut:</p>
+      <ul>
+        <li>Proposal merupakan <strong>karya orisinal</strong> dari Peserta dan bukan merupakan plagiarism atau pengambilan karya orang lain tanpa izin.</li>
+        <li>Proyek yang diajukan <strong>belum pernah mendapat pendanaan</strong> dari program lain pada saat bersamaan, kecuali diungkapkan secara transparan kepada Penyelenggara.</li>
+        <li>Bidang fokus proyek mencakup salah satu dari: <strong>AIoT, Robotika, Generative AI, Web Development</strong>, atau bidang lain yang berkaitan dengan teknologi digital.</li>
+        <li>Estimasi durasi proyek maksimal <strong>6 (enam) bulan</strong> terhitung sejak persetujuan pendanaan.</li>
+        <li>Proposal harus menyertakan: deskripsi proyek, target pengguna, estimasi anggaran (RAB), link presentasi/dokumen pendukung, dan bukti prototipe awal (jika ada).</li>
+        <li>Deskripsi proyek tidak boleh melebihi <strong>500 kata</strong> pada kolom deskripsi singkat.</li>
+      </ul>
+      <p>Penyelenggara berhak menolak proposal yang tidak memenuhi standar kelengkapan dokumen atau mengandung konten yang melanggar hukum, etika, atau nilai-nilai akademis.</p>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="sk-section" id="sk4" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">04</div>
+        <h2>Proses Seleksi & Penilaian</h2>
+      </div>
+      <p>Proses seleksi dilaksanakan melalui beberapa tahapan:</p>
+      <ul>
+        <li><strong>Tahap 1 — Seleksi Administrasi:</strong> Verifikasi kelengkapan dokumen dan eligibilitas peserta.</li>
+        <li><strong>Tahap 2 — Review Proposal:</strong> Penilaian kualitas ide, feasibility teknis, dan potensi dampak oleh tim kurator.</li>
+        <li><strong>Tahap 3 — Pitching:</strong> Presentasi langsung di hadapan panel kurator dari UCIC dan Rakit AI.</li>
+        <li><strong>Tahap 4 — Keputusan Final:</strong> Penentuan proyek yang mendapat pendanaan berdasarkan skor kumulatif.</li>
+      </ul>
+      <div class="highlight-box">
+        <p><strong>Kriteria penilaian</strong> mencakup: (1) Orisinalitas dan inovasi ide — 30%, (2) Kelayakan teknis dan kejelasan rencana kerja — 25%, (3) Potensi dampak sosial atau komersial — 25%, (4) Kualitas presentasi dan kelengkapan RAB — 20%.</p>
+      </div>
+      <p>Keputusan Penyelenggara bersifat <strong>final dan tidak dapat diganggu gugat</strong>. Peserta yang tidak lolos seleksi berhak mendapat feedback singkat atas permintaan.</p>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="sk-section" id="sk5" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">05</div>
+        <h2>Pendanaan & Penggunaan Dana</h2>
+      </div>
+      <p>Dana yang diberikan kepada proyek yang lolos seleksi bersifat <strong>hibah penuh</strong> tanpa kewajiban pengembalian selama ketentuan program dipenuhi.</p>
+      <ul>
+        <li>Besaran dana ditentukan berdasarkan evaluasi RAB yang diajukan, dengan batas maksimum <strong>Rp 50.000.000 (lima puluh juta rupiah)</strong> per proyek.</li>
+        <li>Dana dicairkan secara bertahap sesuai milestone yang disepakati bersama.</li>
+        <li>Dana <strong>hanya boleh digunakan</strong> untuk keperluan yang tercantum dalam RAB yang telah disetujui, meliputi: komponen hardware, lisensi software, biaya cloud/hosting, keperluan riset, dan biaya operasional proyek.</li>
+        <li>Dana <strong>tidak boleh digunakan</strong> untuk: gaji pribadi, konsumsi non-proyek, pembelian aset pribadi, atau keperluan di luar ruang lingkup proyek.</li>
+        <li>Peserta wajib menyerahkan laporan penggunaan dana beserta bukti transaksi setiap bulan selama masa proyek.</li>
+      </ul>
+      <div class="warning-box">
+        <p><i class="fas fa-exclamation-triangle" style="color: var(--yellow); margin-right: 6px;"></i>Penyalahgunaan dana akan mengakibatkan penghentian program dan kewajiban pengembalian dana yang telah dicairkan secara penuh.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="sk-section" id="sk6" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">06</div>
+        <h2>Hak Kekayaan Intelektual</h2>
+      </div>
+      <p><strong>Hak Kekayaan Intelektual (HKI)</strong> atas produk yang dikembangkan melalui program ini diatur sebagai berikut:</p>
+      <ul>
+        <li>Kepemilikan HKI <strong>tetap berada pada Peserta/Tim</strong> selaku pencipta produk.</li>
+        <li>Penyelenggara mendapatkan <strong>hak non-eksklusif</strong> untuk mempromosikan, mempublikasikan, dan memamerkan karya tersebut dalam rangka program dan kegiatan institusi selama 2 (dua) tahun.</li>
+        <li>Peserta memberikan izin kepada Penyelenggara untuk menggunakan nama, foto, dan informasi proyek dalam materi promosi program.</li>
+        <li>Jika proyek dikembangkan lebih lanjut menjadi produk komersial dengan keterlibatan Penyelenggara, pembagian kepemilikan akan diatur dalam perjanjian terpisah.</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="sk-section" id="sk7" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">07</div>
+        <h2>Kewajiban Peserta</h2>
+      </div>
+      <p>Selama masa program, Peserta wajib:</p>
+      <ul>
+        <li>Mengikuti sesi mentorship, review, dan evaluasi yang dijadwalkan oleh Penyelenggara.</li>
+        <li>Memberikan update progres proyek minimal <strong>2 (dua) kali per bulan</strong> kepada tim pendamping.</li>
+        <li>Hadir dan mempresentasikan proyek pada acara <strong>Demo Day</strong> di akhir program.</li>
+        <li>Memberitahu Penyelenggara segera jika ada perubahan signifikan pada ruang lingkup proyek, komposisi tim, atau kondisi yang mempengaruhi kelancaran proyek.</li>
+        <li>Menjaga kerahasiaan informasi internal program yang bersifat konfidensial.</li>
+        <li>Mematuhi semua ketentuan hukum yang berlaku di Indonesia dalam pengembangan produk teknologi.</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="sk-section" id="sk8" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">08</div>
+        <h2>Larangan & Sanksi</h2>
+      </div>
+      <p>Peserta <strong>dilarang keras</strong> melakukan hal-hal berikut:</p>
+      <ul>
+        <li>Mengajukan proposal yang mengandung konten ilegal, menghasut, atau melanggar norma kesusilaan.</li>
+        <li>Mengembangkan produk yang berpotensi merugikan masyarakat, merusak lingkungan, atau digunakan untuk aktivitas kriminal.</li>
+        <li>Menyerahkan informasi atau dokumen palsu dalam proses pendaftaran maupun pelaksanaan program.</li>
+        <li>Mengalihkan dana kepada pihak ketiga tanpa persetujuan tertulis dari Penyelenggara.</li>
+        <li>Melakukan plagiarisme terhadap karya pihak lain.</li>
+      </ul>
+      <div class="warning-box">
+        <p><i class="fas fa-ban" style="color: var(--yellow); margin-right: 6px;"></i><strong>Sanksi</strong> atas pelanggaran dapat berupa: peringatan tertulis, penghentian pendanaan, pengembalian dana yang telah dicairkan, pencabutan hak peserta, atau pelaporan kepada pihak berwajib sesuai hukum yang berlaku.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="sk-section" id="sk9" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">09</div>
+        <h2>Perlindungan Data Pribadi</h2>
+      </div>
+      <p>Penyelenggara berkomitmen melindungi data pribadi Peserta sesuai dengan <strong>Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP)</strong>.</p>
+      <ul>
+        <li>Data pribadi yang dikumpulkan (NIK, nama, alamat, kontak, dll.) hanya digunakan untuk keperluan administrasi program dan verifikasi identitas.</li>
+        <li>Data tidak akan dijual, disewakan, atau diserahkan kepada pihak ketiga tanpa izin Peserta, kecuali diwajibkan oleh hukum.</li>
+        <li>Peserta memiliki hak untuk mengakses, memperbaiki, dan meminta penghapusan data pribadinya dengan menghubungi Penyelenggara.</li>
+        <li>Data proposal yang bersifat teknis akan disimpan secara aman dan hanya dapat diakses oleh tim kurator yang berwenang.</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="sk-section" id="sk10" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">10</div>
+        <h2>Penyelesaian Sengketa</h2>
+      </div>
+      <p>Segala sengketa yang timbul dari program ini diselesaikan melalui jalur berikut:</p>
+      <ul>
+        <li><strong>Musyawarah mufakat</strong> antara Peserta dan Penyelenggara sebagai langkah pertama, dalam jangka waktu 14 (empat belas) hari kerja.</li>
+        <li>Jika musyawarah tidak mencapai kesepakatan, penyelesaian dilakukan melalui <strong>mediasi</strong> yang difasilitasi oleh pihak netral yang disepakati bersama.</li>
+        <li>Jika mediasi gagal, penyelesaian dilakukan melalui jalur hukum di <strong>Pengadilan Negeri Cirebon</strong> sesuai hukum Republik Indonesia.</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 11 -->
+    <div class="sk-section" id="sk11" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">11</div>
+        <h2>Perubahan Ketentuan</h2>
+      </div>
+      <p>Penyelenggara berhak mengubah, menambah, atau menghapus sebagian isi Ketentuan ini sewaktu-waktu dengan pemberitahuan kepada Peserta aktif minimal <strong>7 (tujuh) hari kerja</strong> sebelum perubahan berlaku efektif.</p>
+      <p>Perubahan akan dipublikasikan melalui website resmi program dan/atau dikirimkan melalui email kepada peserta yang terdaftar. Dengan terus berpartisipasi dalam program setelah pemberitahuan tersebut, Peserta dianggap menyetujui perubahan yang berlaku.</p>
+    </div>
+
+    <!-- SECTION 12 -->
+    <div class="sk-section" id="sk12" data-aos="fade-up">
+      <div class="sk-section-header">
+        <div class="sk-section-num">12</div>
+        <h2>Ketentuan Penutup</h2>
+      </div>
+      <p>Dokumen Syarat dan Ketentuan ini merupakan perjanjian yang mengikat secara hukum antara Peserta dan Penyelenggara. Jika ada ketentuan yang dinyatakan tidak valid atau tidak dapat ditegakkan oleh pengadilan, ketentuan lainnya tetap berlaku penuh.</p>
+      <div class="highlight-box">
+        <p>Untuk pertanyaan lebih lanjut mengenai Syarat dan Ketentuan ini, silakan hubungi kami di:<br>
+        <strong>Email:</strong> agenticaiucic@gmail.com<br>
+        <strong>WhatsApp:</strong> +62 813-2001-724<br>
+        <strong>Alamat:</strong> Gedung Agentic AI Center UCIC, Cirebon</p>
+      </div>
+
+      <div style="text-align:center; margin-top:2.5rem;">
+        <a href="#home" class="sk-back-top"><i class="fas fa-arrow-up"></i> Kembali ke atas</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="sk-cta">
+  <div data-aos="zoom-in">
+    <h2>Sudah Membaca Ketentuan?</h2>
+    <p>Pastikan kamu memahami seluruh ketentuan sebelum mengajukan proposal.</p>
+    <div class="sk-cta-btns">
+      <a href="submit_proposal.html" class="btn-primary large">
+        <i class="fas fa-paper-plane"></i>
+        <span>Submit Proposal Sekarang</span>
+      </a>
+      <a href="index.html" class="btn-outline large">
+        <i class="fas fa-home"></i>
+        <span>Kembali ke Beranda</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo footer-logo">
+        <img src="assets/Logo Agentic AI FIXED.svg" alt="Agentic AI Center CIC" class="logo-img footer-logo-img">
+      </div>
+      <p>Pusat inovasi AI untuk generasi muda Indonesia. Bersama kami, ide kamu bisa mengubah dunia.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/agenticaiucic/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@agenticai.ucic" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/share/1DkdEUKC7T/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://youtube.com/@agenticaiucic" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.gg/abc123" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+    <div class="footer-links-group">
+      <h4>Navigasi</h4>
+      <a href="index.html#home">Home</a>
+      <a href="index.html#program">Program Pendanaan</a>
+      <a href="index.html#alur">Alur Pendaftaran</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="footer-links-group">
+      <h4>Legal</h4>
+      <a href="syarat_ketentuan.html">Syarat & Ketentuan</a>
+      <a href="submit_proposal.html">Submit Proposal</a>
+    </div>
+    <div class="footer-links-group">
+      <h4>Kontak</h4>
+      <a href="mailto:agenticaiucic@gmail.com"><i class="fas fa-envelope"></i><span>agenticaiucic@gmail.com</span></a>
+      <a href="https://wa.me/628132001724" target="_blank"><i class="fab fa-whatsapp"></i> +62 813-2001-724</a>
+      <a href="https://maps.app.goo.gl/u6ZPPEoTwR7V3Aae6" target="_blank"><i class="fas fa-map-marker-alt"></i>Gedung Agentic AI Center UCIC, Cirebon</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Agentic AI Center UCIC. All rights reserved.</p>
+    <p>Powered by <strong>UCIC dan Rakit AI</strong></p>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/628132001724" class="wa-float" target="_blank" aria-label="Chat via WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-tooltip">Ada pertanyaan? Chat kami!</span>
+  <div class="wa-pulse"></div>
+</a>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Back to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<script src="script.js"></script>
+</body>
+</html>
